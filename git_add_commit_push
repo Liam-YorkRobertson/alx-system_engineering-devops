@@ -1,4 +1,0 @@
-#!/bin/bash
-git add .
-git commit -m "using script to add, commit, push to save time on tasks"
-git push
