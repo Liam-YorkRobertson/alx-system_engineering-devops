@@ -2,5 +2,5 @@
 #script that lists files in directory
 
 for file in *[!.-]*; do
-  echo "${file#*-}"
+	echo "${file#*-}"
 done
