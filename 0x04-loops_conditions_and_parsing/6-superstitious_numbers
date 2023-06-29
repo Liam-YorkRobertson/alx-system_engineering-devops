@@ -4,7 +4,7 @@
 count=1
 while ((count<=20))
 do
-	case $count in
+	case "$count" in
 		4)
 			echo "bad luck from China";;
 		9)
