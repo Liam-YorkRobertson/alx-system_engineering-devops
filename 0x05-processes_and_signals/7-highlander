@@ -1,5 +1,15 @@
 #!/usr/bin/env bash
 #Bash script
 
-PID=$(pgrep -f "7-highlander")
-pkill -P "$PID"
+handle_sigterm() {
+  echo "I am invincible!!!"
+  exit 0
+}
+
+trap handle_sigterm SIGTERM
+
+while true 
+do
+  echo "To infinity and beyond"
+  sleep 2
+done
