@@ -3,4 +3,4 @@
 
 PID=$(pgrep -f "4-to_infinity_and_beyond")
 sleep 5
-trap "kill $PID" SIGINT
+trap 'kill $PID' SIGINT
