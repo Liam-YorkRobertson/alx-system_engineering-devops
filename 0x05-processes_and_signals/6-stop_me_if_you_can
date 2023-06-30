@@ -2,5 +2,5 @@
 #Bash script that stops 4-to_infinity_and_beyond process
 
 PID=$(pgrep -f "4-to_infinity_and_beyond")
-sleep 5
 pkill -SIGUSR1 -P "$PID"
+echo "Terminated"
