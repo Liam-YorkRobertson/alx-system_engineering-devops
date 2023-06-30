@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+#Bash script that kills the process 7-highlander
+
+./7-highlander &
+PID=$!
+kill "$PID"
+echo "Killed"
