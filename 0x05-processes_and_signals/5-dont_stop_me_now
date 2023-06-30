@@ -3,6 +3,5 @@
 
 ./4-to_infinity_and_beyond &
 PID=$!
-sleep 28
 kill "$PID"
 echo "Terminated"
