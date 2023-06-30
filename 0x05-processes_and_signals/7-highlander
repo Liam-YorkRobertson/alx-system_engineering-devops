@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#Bash script
+
+PID=$(pgrep -f "7-highlander")
+pkill -P "$PID"
