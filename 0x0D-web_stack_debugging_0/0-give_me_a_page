@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#script that gets apache running on the container
+
+sudo service apache2 start
