@@ -2,10 +2,31 @@
 #script that configures Nginx so that its HTTP response contains a custom header
 
 sudo apt-get update
-sudo apt-get upgrade -y
 sudo apt-get install -y nginx
-sudo tee /etc/nginx/sites-available/default > /dev/null <<EOL
-server {
+sudo echo "Hello World!" | sudo tee /var/www/html/index.html
+echo "Ceci n'est pas une page" | sudo tee /usr/share/nginx/html/404.html
+echo "server {
+    listen 80;
+    server_name _;
+
+    location /redirect_me {
+        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+    }
+}" | sudo tee /etc/nginx/sites-available/redirect_me
+echo "server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    root /usr/share/nginx/html;
+    index index.html;
+    location / {
+        try_files $uri $uri/ =404;
+    }
+    error_page 404 /404.html;
+    location = /404.html {
+        internal;
+    }
+}" | sudo tee /etc/nginx/sites-available/custom_404
+echo "server {
     listen 80 default_server;
     server_name _;
 
@@ -16,8 +37,6 @@ server {
         try_files \$uri \$uri/ =404;
     }
 
-    # Custom HTTP response header
     add_header X-Served-By \$hostname;
-}
-EOL
+}" | sudo tee /etc/nginx/sites-available/default > /dev/null
 sudo service nginx reload
