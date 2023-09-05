@@ -38,5 +38,5 @@ echo "server {
     }
 
     add_header X-Served-By \$hostname;
-}" | sudo tee /etc/nginx/sites-available/default > /dev/null
+}" | sudo tee /etc/nginx/sites-available/default
 sudo service nginx reload
