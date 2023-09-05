@@ -1,21 +1,21 @@
 #script that creates a custom HTTP header response
 
-exec { 'update':
+exec { 'update_nginx':
   command => '/usr/bin/apt-get update',
-}
+} ->
 
 package { 'nginx':
   ensure => 'present',
-}
+} ->
 
-file_line { 'http_header':
-  path  => '/etc/nginx/nginx.conf',
-  match => 'http {',
-  line  => "add_header X-Served-By \"${hostname}\";",
-}
+file { '/etc/nginx/nginx.conf':
+  ensure  => present,
+  content => template('2-puppet_custom_http_response_header/nginx.conf.erb'),
+  require => Package['nginx'],
+} ->
 
-exec { 'restart_nginx':
-  command     => '/usr/sbin/service nginx restart',
+exec { 'start_nginx':
+  command     => '/usr/sbin/service nginx start',
   refreshonly => true,
-  subscribe   => File_line['http_header'],
+  subscribe   => File['/etc/nginx/nginx.conf'],
 }
