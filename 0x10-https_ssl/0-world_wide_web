@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+#Shows information about subdomains
+
+display_dns_info() {
+    subdomain="$1"
+    domain="$2"
+    dig_out=$(dig +short "$subdomain.$domain" 2>/dev/null) 
+    if [ -n "$dig_out" ]; then
+        record_type=$(dig "$subdomain.$domain" +short -t A 2>/dev/null)
+        if [ -n "$record_type" ]; then
+            echo "The subdomain $subdomain is a A record and points to $dig_out"
+        fi
+    fi
+}
+
+if [ $# -eq 2 ]; then
+    subdomain="$2"
+    domain="$1"
+    display_dns_info "$subdomain" "$domain"
+else
+    domain="$1"
+    display_dns_info "www" "$domain"
+    display_dns_info "lb-01" "$domain"
+    display_dns_info "web-01" "$domain"
+    display_dns_info "web-02" "$domain"
+fi
