@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#script that makes sure nginx is running with nginx user
+sudo sed -i 's/user nginx;/user nginx nginx;/g' /etc/nginx/nginx.conf
+sudo sed -i 's/listen 80;/listen 8080;/g' /etc/nginx/sites-available/default
+sudo service nginx restart
