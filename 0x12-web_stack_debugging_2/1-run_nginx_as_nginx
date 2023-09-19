@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #script that makes sure nginx is running with nginx user
+pkill apache2
 sudo -u nginx service nginx stop
-sudo -u nginx service apache2 stop
 sudo chmod 644 /etc/nginx/nginx.conf
 sudo sed -i 's/#user www-data/user nginx/' /etc/nginx/nginx.conf
 sudo sed -i 's/80/8080/g' /etc/nginx/sites-available/default
