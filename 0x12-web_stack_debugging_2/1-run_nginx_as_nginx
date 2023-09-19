@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+!/usr/bin/env bash
 #script that makes sure nginx is running with nginx user
 pkill apache2
 sudo -u nginx service nginx stop
