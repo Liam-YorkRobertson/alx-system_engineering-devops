@@ -1,6 +1,3 @@
 #!/usr/bin/env bash
-#script that runs whoami on users
-if [ $# -ge 1 ]
-then
-   sudo -u "$1" whoami
-fi
+#shorter version of task 0
+sudo -u "$1" whoami
