@@ -21,8 +21,6 @@ if __name__ == "__main__":
     csv_file = f"{emp_id}.csv"
     with open(csv_file, mode="w", newline="") as file:
         writer = csv.writer(file, quoting=csv.QUOTE_ALL)
-        writer.writerow(["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS",
-                        "TASK_TITLE"])
 
         for task in tasks:
             task_completed = task.get("completed")
