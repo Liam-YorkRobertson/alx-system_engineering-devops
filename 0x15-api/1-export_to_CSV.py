@@ -6,13 +6,12 @@ import csv
 import requests
 from sys import argv
 
-
 if __name__ == "__main__":
     emp_id = int(argv[1])
     user_url = f"https://jsonplaceholder.typicode.com/users/{emp_id}"
     tasks_url = f"https://jsonplaceholder.typicode.com/todos?userId={emp_id}"
     user = requests.get(user_url).json()
-    emp_name = user.get("name")
+    emp_name = user.get("username")
     tasks = requests.get(tasks_url).json()
     completed_tasks = []
     for t in tasks:
