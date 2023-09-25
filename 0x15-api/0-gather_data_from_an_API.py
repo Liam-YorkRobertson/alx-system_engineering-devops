@@ -3,25 +3,33 @@
 Python script that, using a REST API, for a given employee ID,
 returns information about his/her TODO list progress.
 """
-
-import requests
+from requests import get
 from sys import argv
 
 
 if __name__ == "__main__":
-    if len(argv) != 2 or not argv[1].isdigit():
-        print("Usage: {} <employee_id>".format(argv[0]))
-    else:
-        employee_id = int(argv[1])
+    response = get('https://jsonplaceholder.typicode.com/todos/')
+    data = response.json()
+    completed = 0
+    total = 0
+    tasks = []
+    response2 = get('https://jsonplaceholder.typicode.com/users')
+    data2 = response2.json()
 
-        user_data = requests.get(f"https://jsonplaceholder.typicode.com/users/{employee_id}").json()
-        employee_name = user_data.get("name")
+    for i in data2:
+        if i.get('id') == int(argv[1]):
+            employee = i.get('name')
 
-        tasks_data = requests.get(f"https://jsonplaceholder.typicode.com/todos?userId={employee_id}").json()
-        completed_tasks = [t["title"] for t in tasks_data if t.get("completed")]
-        total_tasks = len(tasks_data)
+    for i in data:
+        if i.get('userId') == int(argv[1]):
+            total += 1
 
-        print(f"Employee {employee_name} is done with tasks({len(completed_tasks)}/{total_tasks}):")
+            if i.get('completed') is True:
+                completed += 1
+                tasks.append(i.get('title'))
 
-        for task in completed_tasks:
-            print(f"\t{task}")
+    print("Employee {} is done with tasks({}/{}):".format(employee, completed,
+                                                          total))
+
+    for i in tasks:
+        print("\t {}".format(i))
